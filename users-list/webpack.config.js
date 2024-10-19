@@ -1,7 +1,7 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  entry: "./src/index",
+  entry: "./src/entry.js",
   mode: "development",
   devServer: {
     port: 3000,
