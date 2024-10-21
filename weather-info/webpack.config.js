@@ -1,7 +1,17 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
+const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
+const { dependencies } = require("./package.json");
+
+const path = require("path");
+
 module.exports = {
   entry: "./src/entry.js",
+  output: {
+    path: path.resolve(__dirname, "dist"),
+    filename: "bundle.js",
+    publicPath: "http://localhost:3001/",
+  },
   mode: "development",
   devServer: {
     port: 3001,
@@ -29,6 +39,26 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "./public/index.html",
+    }),
+    new ModuleFederationPlugin({
+      name: "WeatherInfo",
+      filename: "remoteEntry.js",
+      exposes: {
+        "./WeatherInfo": "./src/WeatherInfo", //fddddddddddddddd
+      },
+      shared: {
+        ...dependencies,
+        react: {
+          singleton: true,
+          eager: true,
+          requiredVersion: dependencies["react"],
+        },
+        "react-dom": {
+          singleton: true,
+          eager: true,
+          requiredVersion: dependencies["react-dom"],
+        },
+      },
     }),
   ],
   resolve: {
