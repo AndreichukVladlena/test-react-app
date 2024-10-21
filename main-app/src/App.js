@@ -9,29 +9,7 @@ function App() {
   const [menu, setMenu] = useState("");
   return (
     <div className="App">
-      <div>
-        <input
-          type="radio"
-          name="menu"
-          id="users"
-          value="users"
-          onClick={(e) => setMenu(e.target.value)}
-        />
-        <label htmlFor="users">Users List</label>
-        <input
-          type="radio"
-          name="menu"
-          id="weather"
-          value="weather"
-          onClick={(e) => setMenu(e.target.value)}
-        />
-        <label htmlFor="weather">Weather Info</label>
-      </div>
-      <Suspense fallback={<div>Loading...</div>}>
-        {!menu && <div>Choose page</div>}
-        {menu === "users" && <UsersList />}
-        {menu === "weather" && <WeatherInfo />}
-      </Suspense>
+      <div className="container">This is my home page</div>
     </div>
   );
 }
