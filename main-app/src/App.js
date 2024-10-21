@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 import React, { useState } from "react";
+import Menu from "./components/Menu";
 import "./App.css";
 
 const UsersList = lazy(() => import("UsersList/UsersList"));
@@ -9,7 +10,12 @@ function App() {
   const [menu, setMenu] = useState("");
   return (
     <div className="App">
-      <div className="container">This is my home page</div>
+      <Menu menu={menu} setMenu={setMenu} />
+      <Suspense fallback={<div>Loading...</div>}>
+        {!menu && <div>Choose page</div>}
+        {menu === "users" && <UsersList />}
+        {menu === "weather" && <WeatherInfo />}
+      </Suspense>
     </div>
   );
 }
